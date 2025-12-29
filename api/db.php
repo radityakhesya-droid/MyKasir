@@ -1,20 +1,21 @@
 <?php
+// 1. Inisialisasi objek mysqli
 $conn = mysqli_init();
 
-// Baris ini SANGAT PENTING: Mengaktifkan mode SSL sebelum koneksi dibuat
+// 2. Wajib set SSL sebelum melakukan koneksi (ini kunci utamanya)
 mysqli_ssl_set($conn, NULL, NULL, NULL, NULL, NULL);
 
-// Melakukan koneksi menggunakan data dari Environment Variables Vercel
-$success = mysqli_real_connect(
-    $conn, 
-    getenv('DB_HOST'), 
-    getenv('DB_USER'), 
-    getenv('DB_PASSWORD'), 
-    getenv('DB_NAME'), 
-    4000
-);
+// 3. Ambil data dari Environment Variables
+$host = getenv('DB_HOST');
+$user = getenv('DB_USER');
+$pass = getenv('DB_PASSWORD');
+$db   = getenv('DB_NAME');
+$port = 4000;
+
+// 4. Lakukan koneksi dengan error suppression (@) untuk handling manual
+$success = mysqli_real_connect($conn, $host, $user, $pass, $db, $port);
 
 if (!$success) {
-    die("Koneksi gagal: " . mysqli_connect_error());
+    die("Koneksi gagal ke TiDB Cloud: " . mysqli_connect_error());
 }
 ?>

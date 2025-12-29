@@ -45,7 +45,15 @@ if (isset($_GET['hapus'])) {
 // 3. LOGIKA: Pencarian Produk
 $search = $_GET['cari'] ?? '';
 $query = "SELECT * FROM produk WHERE nama LIKE ? AND stok > 0";
+
 $stmt = $conn->prepare($query);
+
+// Tambahkan pengecekan ini:
+if ($stmt === false) {
+    // Ini akan memberi tahu kita jika tabel 'produk' benar-benar belum terbaca
+    die("Gagal menyiapkan query: " . $conn->error); 
+}
+
 $search_param = "%$search%";
 $stmt->bind_param("s", $search_param);
 $stmt->execute();

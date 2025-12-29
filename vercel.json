@@ -6,7 +6,6 @@
   },
   "routes": [
     { "src": "/style.css", "dest": "/style.css" },
-    { "src": "/manage_products", "dest": "/api/manage_products.php" },
     { "src": "/api/manage_products", "dest": "/api/manage_products.php" },
     { "src": "/", "dest": "/api/index.php" },
     { "src": "/api/(.*)", "dest": "/api/$1.php" },

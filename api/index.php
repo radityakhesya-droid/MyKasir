@@ -74,7 +74,7 @@ $produk_db = $stmt->get_result();
         <div class="navbar-brand">☕🍽️ MyKasir.</div>
         <div class="navbar-nav">
             <a href="index.php" class="active">Dashboard Kasir</a>
-            <a href="api/manage_products.php">Kelola Produk</a>
+            <a href="/api/manage_products.php" class="btn">Kelola Produk</a>
         </div>
     </nav>
 

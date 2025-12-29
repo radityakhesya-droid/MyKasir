@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_SESSION['keranjang'])) {
 <head>
     <meta charset="UTF-8">
     <title>Transaksi Berhasil - MyKasir</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/style.css">
     <style>
         .success-wrapper {
             display: flex;

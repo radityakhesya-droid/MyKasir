@@ -1,22 +1,21 @@
 <?php
-/**
- * Konfigurasi Database mykasir
- */
+// Mengambil data dari Environment Variables Vercel
+$host = getenv('DB_HOST');
+$user = getenv('DB_USER');
+$pass = getenv('DB_PASSWORD');
+$db   = getenv('DB_NAME');
+$port = getenv('DB_PORT') ?: 4000;
 
-$host = "localhost";
-$user = "root";
-$pass = ""; // Kosongkan jika menggunakan XAMPP default
-$db   = "mykasir123";
+// Inisialisasi koneksi MySQL
+$conn = mysqli_init();
 
-// Membuat koneksi ke database
-$conn = mysqli_connect($host, $user, $pass, $db);
+// Wajib menggunakan SSL untuk koneksi ke TiDB Cloud
+mysqli_ssl_set($conn, NULL, NULL, NULL, NULL, NULL);
 
-// Cek Koneksi
-if (!$conn) {
-    // Menghentikan eksekusi jika gagal dan menampilkan pesan error
-    die("Gagal terhubung ke database: " . mysqli_connect_error());
+// Melakukan koneksi
+$success = mysqli_real_connect($conn, $host, $user, $pass, $db, $port);
+
+if (!$success) {
+    die("Koneksi Database Gagal: " . mysqli_connect_error());
 }
-
-// Set timezone agar waktu transaksi akurat (WIB)
-date_default_timezone_set('Asia/Jakarta');
 ?>

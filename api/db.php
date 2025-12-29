@@ -1,8 +1,10 @@
 <?php
 $conn = mysqli_init();
-// Wajib menggunakan SSL untuk TiDB Cloud
+
+// Baris ini SANGAT PENTING: Mengaktifkan mode SSL sebelum koneksi dibuat
 mysqli_ssl_set($conn, NULL, NULL, NULL, NULL, NULL);
 
+// Melakukan koneksi menggunakan data dari Environment Variables Vercel
 $success = mysqli_real_connect(
     $conn, 
     getenv('DB_HOST'), 

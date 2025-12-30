@@ -21,7 +21,7 @@ if (isset($_POST['simpan'])) {
         $stmt->bind_param("sdii", $nama, $harga, $stok, $id);
     }
     $stmt->execute();
-    header("Location: manage_products.php?pesan=disimpan");
+    header("Location: /api/manage_products.php?pesan=disimpan");
     exit;
 }
 
@@ -65,10 +65,9 @@ $produk_query = mysqli_query($conn, "SELECT * FROM produk ORDER BY id ASC");
     <nav class="navbar">
         <div class="navbar-brand">☕🍽️ MyKasir.</div>
         <div class="navbar-nav">
-            <a href="index.php">Dashboard Kasir</a>
-            <a href="manage_products.php" class="active">Kelola Produk</a>
-        </div>
-    </nav>
+    <a href="/api/index.php">Dashboard Kasir</a>
+    <a href="/api/manage_products.php" class="active">Kelola Produk</a>
+</div>
 
     <div class="container">
         

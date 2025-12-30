@@ -1,30 +1,18 @@
 <?php
-// Matikan pelaporan error mysqli untuk sementara agar tidak membocorkan password jika gagal
-mysqli_report(MYSQLI_REPORT_OFF);
+$host = 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com';
+$user = 'i6DvFHPQtMZfBFD.root';
+$pass = 'hvDxHF05UC0fVYAF';
+$db   = 'test';
+$port = 4000; // TiDB biasanya menggunakan port 4000
 
 $conn = mysqli_init();
+// Mengaktifkan SSL (TiDB Cloud mewajibkan ini)
+mysqli_ssl_set($conn, NULL, NULL, NULL, NULL, NULL); 
 
-if (!$conn) {
-    die("mysqli_init gagal");
-}
-
-// 1. Atur SSL (Parameter NULL berarti menggunakan default sistem yang aman)
-// Baris ini WAJIB ada di atas mysqli_real_connect
-mysqli_ssl_set($conn, NULL, NULL, NULL, NULL, NULL);
-
-// 2. Lakukan koneksi
-$success = mysqli_real_connect(
-    $conn, 
-    getenv('DB_HOST'), 
-    getenv('DB_USER'), 
-    getenv('DB_PASSWORD'), 
-    getenv('DB_NAME'), 
-    4000,
-    NULL,
-    MYSQLI_CLIENT_SSL // Tambahkan flag SSL eksplisit di sini
-);
+$success = mysqli_real_connect($conn, $host, $user, $pass, $db, $port, NULL, MYSQLI_CLIENT_SSL);
 
 if (!$success) {
-    die("Kesalahan Koneksi: " . mysqli_connect_error());
+    error_log("Koneksi TiDB gagal: " . mysqli_connect_error());
+    die("Koneksi Database Bermasalah: " . mysqli_connect_error());
 }
 ?>
